@@ -8,19 +8,9 @@ function App() {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
     setMovies(data.Search);
-
-    //console.log(data.Search);
   };
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const movie1 = {
-    Title: "Batman Begins",
-    Year: "2005",
-    imdbID: "tt0372784",
-    Type: "movie",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-  };
   useEffect(() => {
     searchMovies("Batman");
   }, []);

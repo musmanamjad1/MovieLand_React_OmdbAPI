@@ -13,7 +13,7 @@ const MovieCard = ({ movie }) => {
               ? movie.Poster
               : "https://via.placeholer.com/400"
           }
-          alt=""
+          alt=" Movie Poster"
         ></img>
       </div>
       <div>
