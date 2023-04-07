@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import "./App.css";
 import SearchIcon from "./search.svg";
@@ -7,9 +7,12 @@ function App() {
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
-    console.log(data.Search);
-  };
+    setMovies(data.Search);
 
+    //console.log(data.Search);
+  };
+  const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const movie1 = {
     Title: "Batman Begins",
     Year: "2005",
@@ -25,12 +28,30 @@ function App() {
     <div className="app">
       <h1> MOVIE LAND</h1>
       <div className="search">
-        <input placeholder="Search Movie" onChange={() => {}} />
-        <img src="{SearchIcon}" alt="Search" onChange={() => {}} />
+        <input
+          placeholder="Search Movie"
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <img
+          src={SearchIcon}
+          alt="Search"
+          onClick={() => searchMovies(searchTerm)}
+        />
       </div>
-      <div className="container">
-        <MovieCard movie1={movie1}></MovieCard>
-      </div>
+      {movies?.length > 0 ? (
+        <div className="container">
+          {movies.map((movie) => (
+            <MovieCard movie={movie}></MovieCard>
+          ))}
+        </div>
+      ) : (
+        <div className="empty">
+          <h2> NO MOVIES FOUND</h2>
+        </div>
+      )}
     </div>
   );
 }
